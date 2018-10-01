@@ -191,7 +191,7 @@ def playlist_download(id,user):
 def download_av(video_url,user):
     global encode_lock  #视频渲染锁，用来排队
     if(clean_files()):  #检查空间是否在设定值以内，并自动删除多余视频缓存
-        send_dm_long('树莓存储空间已爆炸，请联系up')
+        send_dm_long('机顶盒存储空间已爆炸，请联系up')
         return
     if check_coin(user, 500) == False and var_set.use_gift_check:   #扣掉瓜子数
         send_dm_long('用户'+user+'赠送的瓜子不够点视频哦,还差'+str(500-get_coin(user))+'瓜子的礼物')
@@ -320,14 +320,14 @@ def pick_msg(s, user):
     global jump_to_next_counter #切歌请求次数统计
     global encode_lock  #视频渲染任务锁
     global rp_lock
-    if ((user=='晨旭') | (user=='摘希喵喵喵')):    #debug使用，请自己修改
+    if ((user=='NekokeCore')):    #debug使用，请自己修改
         if(s=='锁定'):
             rp_lock = True
             send_dm_long('已锁定点播功能，不响应任何弹幕')
         if(s=='解锁'):
             rp_lock = False
             send_dm_long('已解锁点播功能，开始响应弹幕请求')
-    if((user == '接待喵') | rp_lock):  #防止自循环
+    if((user == 'ByteServer私服') | rp_lock):  #防止自循环
         return
     #下面的不作解释，很简单一看就懂
     if(s.find('mvid+') == 0):
@@ -504,7 +504,7 @@ def pick_msg(s, user):
         send_dm_long(get_info.getInfo())
         try:
             temp = dht11.get_dht11()
-            send_dm_long("温度："+str(temp[0])+"℃，湿度："+str(temp[1])+"%")
+            send_dm_long("温度："+str(temp[0])+"℃)
         except Exception as e:  #防炸
             print('shit')
             print(e)
