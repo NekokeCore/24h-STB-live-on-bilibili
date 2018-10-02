@@ -2,7 +2,7 @@
 
 由电信IPTV电视机顶盒驱动的b站直播点播台源码（移植于https://github.com/chenxuuu/24h-raspberry-live-on-bilibili）
 
-demo:[https://live.bilibili.com/393116](https://live.bilibili.com/393116)
+预览Demo:[https://live.bilibili.com/393116](https://live.bilibili.com/393116)
 
 ![](https://github.com/NekokeCore/24h-STB-live-on-bilibili/raw/master/demo.jpg)
 
