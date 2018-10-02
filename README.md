@@ -4,7 +4,7 @@
 
 预览Demo:[https://live.bilibili.com/393116](https://live.bilibili.com/393116)
 
-![](https://github.com/NekokeCore/24h-STB-live-on-bilibili/raw/master/demo.jpg)
+![](https://github.com/NekokeCore/24h-STB-live-on-bilibili/raw/master/demo2.jpg)
 
 -------
 由于是源代码是基于树莓派编写的，所以移植到机顶盒上或多或少会有一些BUG
@@ -56,31 +56,31 @@ cd ..
 rm -rf x264
 ```
 
-libmp3lame：
+安装libmp3lame：
 
 ```Bash
 sudo apt-get install libmp3lame-dev
 ```
 
-libopus:
+安装libopus:
 
 ```Bash
 sudo apt-get install libopus-dev
 ```
 
-libvpx:
+安装libvpx:
 
 ```Bash
 sudo apt-get install libvpx-dev
 ```
 
-libomxil-bellagio:
+安装libomxil-bellagio:
 
 ```Bash
 sudo apt-get install libomxil-bellagio-dev
 ```
 
-编译并安装ffmpeg：
+安装ffmpeg：
 
 ```Bash
 sudo apt-get install ffmpeg
@@ -136,7 +136,7 @@ fc-list :lang=zh-cn
 
 （字体安装来自[ubuntu下 bilibili直播推流 ffmpeg rtmp推送](https://ppx.ink/2.ppx)）
 
-### 安装：
+### 安装程序本体：
 
 下载本项目：
 
