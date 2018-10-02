@@ -22,20 +22,22 @@
 - 播放音乐时背景图片随机选择
 - 可点播b站任意视频（会员限制除外，番剧根据b站规定，禁止点播）
 - 已点播歌曲、视频自动进入缓存，无人点播时随机播放
-- 存储空间达到设定值时，自动按点播时间顺序删除音乐、视频来释放空间
 - 实时显示歌曲/视频长度
 
+未测试：
+
+- 存储空间达到设定值时，自动按点播时间顺序删除音乐、视频来释放空间
+- 根据投喂礼物的多少来决定是否允许点播
 
 已知BUG：
 
-- 根据投喂礼物的多少来决定是否允许点播
 - 通过弹幕获取实时cpu温度
 - 切歌
 - 换歌、视频时会闪断
 
 ## 温馨提示：
 
-我使用的是山东电信版的IPTV机顶盒其他盒子自测，基于[https://github.com/meefik/linuxdeploy/releases](Linux Deploy)，系统Debian9（中科大源），构架arm64
+我使用的是山东电信版的IPTV机顶盒其他盒子自测，基于[https://github.com/meefik/linuxdeploy/releases](Linux Deploy)，系统Debian9（中科大源），构架arm64有问题请提交issue
 
 ### 依赖库：
 
@@ -86,9 +88,26 @@ sudo apt-get install libomxil-bellagio-dev
 sudo apt-get install ffmpeg
 ```
 
-安装pip3
+安装python-dev&python3-dev
+
 ```Bash
-待补充
+sudo apt-get install python-dev
+sudo apt-get install python3-dev
+```
+
+安装pip3：
+
+```Bash
+wget --no-check-certificate https://files.pythonhosted.org/packages/6e/9c/6a003320b00ef237f94aa74e4ad66c57a7618f6c79d67527136e2544b728/setuptools-40.4.3.zip
+unzip setuptools-40.4.3.zip
+cd setuptools-40.4.3
+python3 setup.py build
+python3 setup.py install
+wget --no-check-certificate  https://files.pythonhosted.org/packages/69/81/52b68d0a4de760a2f1979b0931ba7889202f302072cc7a0d614211bc7579/pip-18.0.tar.gz
+tar -zxvf pip-18.0.tar.gz
+cd pip-18.0
+python3 setup.py build
+python3 setup.py install
 ```
 
 安装python3的mutagen库：
@@ -163,9 +182,8 @@ git clone https://github.com/NekokeCore/24h-STB-live-on-bilibili.git
 
 ```Bash
 screen python3 play.py
-#按ctrl+a,按ctrl+d
+#提示ffmpeg未安装，等它自己下载安装
 screen python3 bilibiliClient.py
-#按ctrl+a,按ctrl+d
 #弹幕监控使用了弹幕姬python版：https://github.com/lyyyuna/bilibili_danmu
 #感谢弹幕姬python版作者的分享
 ```
