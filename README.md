@@ -1,28 +1,15 @@
-# 24h-raspberry-live-on-bilibili
+# 24h-STB-live-on-bilibili
 
-树莓派驱动的b站直播点播台
+由电信IPTV电视机顶盒驱动的b站直播点播台源码（移植于https://github.com/chenxuuu/24h-raspberry-live-on-bilibili）
 
-demo:[http://live.bilibili.com/16703](http://live.bilibili.com/16703)
+demo:[https://live.bilibili.com/393116](https://live.bilibili.com/393116)
 
-![](https://github.com/chenxuuu/24h-raspberry-live-on-bilibili/raw/master/demo.jpg)
-
-注意这个是新项目，查看旧版的代码请打开“old”分支查看（旧版为网页点歌版）
-
-本项目有两个链接：
-
-GitHub：[https://github.com/chenxuuu/24h-raspberry-live-on-bilibili.git](https://github.com/chenxuuu/24h-raspberry-live-on-bilibili.git)
-
-git.osc：[https://gitee.com/Young_For_You/24h-raspberry-live-on-bilibili.git](https://gitee.com/Young_For_You/24h-raspberry-live-on-bilibili.git)
-
-----
-
-### 同时也可以去用smilecc大佬重构的版本：
-
-[blive-raspberry（https://github.com/smilecc/blive-raspberry）](https://github.com/smilecc/blive-raspberry)
+![](https://github.com/NekokeCore/24h-STB-live-on-bilibili/raw/master/demo.jpg)
 
 -------
+由于是源代码是基于树莓派编写的，所以移植到机顶盒上或多或少会有一些BUG
 
-本项目基本编写完毕，已经有的功能为：
+经测试正常功能：
 
 - 弹幕点歌
 - 弹幕点MV
@@ -30,26 +17,27 @@ git.osc：[https://gitee.com/Young_For_You/24h-raspberry-live-on-bilibili.git](h
 - 旧版实现的视频推流功能
 - 自定义介绍字幕
 - 歌词滚动显示，同时滚动显示翻译歌词
-- 切歌
 - 显示排队播放歌曲，渲染视频
-- 通过弹幕获取实时cpu温度
 - 闲时随机播放预留歌曲
 - 播放音乐时背景图片随机选择
 - 可点播b站任意视频（会员限制除外，番剧根据b站规定，禁止点播）
 - 已点播歌曲、视频自动进入缓存，无人点播时随机播放
 - 存储空间达到设定值时，自动按点播时间顺序删除音乐、视频来释放空间
 - 实时显示歌曲/视频长度
+
+
+已知BUG：
+
 - 根据投喂礼物的多少来决定是否允许点播
-
-已知问题：
-
+- 通过弹幕获取实时cpu温度
+- 切歌
 - 换歌、视频时会闪断
 
-## 食用方法：
+## 温馨提示：
 
-我这里用的是树莓派3B，系统2017-09-07-raspbian-stretch.img，官方默认软件源，其他配置请自测
+我使用的是山东电信版的IPTV机顶盒其他盒子自测，基于[https://github.com/meefik/linuxdeploy/releases](Linux Deploy)，系统Debian9（中科大源），构架arm64
 
-### 先准备餐具：
+### 依赖库：
 
 ```Bash
 sudo apt-get update
@@ -92,19 +80,16 @@ libomxil-bellagio:
 sudo apt-get install libomxil-bellagio-dev
 ```
 
-编译并安装ffmpeg（时间较长，半小时左右）：
+编译并安装ffmpeg：
 
 ```Bash
-wget http://ffmpeg.org/releases/ffmpeg-4.0.tar.bz2
-tar jxvf ffmpeg-4.0.tar.bz2
-cd ffmpeg-4.0
-sudo ./configure --arch=armel --target-os=linux --enable-gpl --enable-libx264 --enable-nonfree --enable-libass --enable-libfreetype  --enable-omx --enable-omx-rpi --enable-encoder=h264_omx --enable-mmal --enable-hwaccel=h264_mmal --enable-decoder=h264_mmal
-make -j4
-sudo make install
-cd ..
+sudo apt-get install ffmpeg
 ```
 
-（以上有一部分代码参考自[ffmpeg源码编译安装（Compile ffmpeg with source）  Part 2 ： 扩展安装 - 人脑之战 - 博客园](http://www.cnblogs.com/yaoz/p/6944942.html)）
+安装pip3
+```Bash
+待补充
+```
 
 安装python3的mutagen库：
 
@@ -118,13 +103,13 @@ sudo pip3 install mutagen
 sudo pip3 install you-get
 ```
 
-安装python3的moviepy库：
+安装python3的moviepy库（失败别灰心见下面的问题疑难解答!)：
 
 ```Bash
 sudo pip3 install moviepy
 ```
 
-安装python3的aiohttp库：
+安装python3的aiohttp库（失败别灰心见下面的问题疑难解答!)：
 
 ```Bash
 sudo pip3 install aiohttp
@@ -143,7 +128,7 @@ sudo apt install fontconfig
 sudo apt-get install ttf-mscorefonts-installer
 sudo apt-get install -y --force-yes --no-install-recommends fonts-wqy-microhei
 sudo apt-get install -y --force-yes --no-install-recommends ttf-wqy-zenhei
-#可能有装不上的，应该问题不大
+#有装不上的问题不大
 
 # 查看中文字体 --确认字体是否安装成功
 fc-list :lang=zh-cn
@@ -151,34 +136,12 @@ fc-list :lang=zh-cn
 
 （字体安装来自[ubuntu下 bilibili直播推流 ffmpeg rtmp推送](https://ppx.ink/2.ppx)）
 
-### 设置显存
-
-打开树莓派设置：
-
-```Bash
-sudo raspi-config
-```
-
-选择`Advanced Options`，回车
-
-选择`Memory Split`，回车
-
-把数值改成`256`
-
-回车，接着退出设置，重启树莓派
-
-### 烹饪&摆盘：
+### 安装：
 
 下载本项目：
 
 ```Bash
-git clone https://github.com/chenxuuu/24h-raspberry-live-on-bilibili.git
-```
-
-或
-
-```Bash
-git clone https://gitee.com/Young_For_You/24h-raspberry-live-on-bilibili.git
+git clone https://github.com/NekokeCore/24h-STB-live-on-bilibili.git
 ```
 
 请修改下载里的`var_set.py`文件中的各种变量
@@ -207,6 +170,4 @@ screen python3 bilibiliClient.py
 #感谢弹幕姬python版作者的分享
 ```
 
-如有不对的地方，请提交issue，也欢迎各位改进脚本并pr
-
-本程序协议为GPL
+程序协议为GPL
