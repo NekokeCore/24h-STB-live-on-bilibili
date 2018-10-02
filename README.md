@@ -4,7 +4,7 @@
 
 预览Demo:[https://live.bilibili.com/393116](https://live.bilibili.com/393116)
 
-![](https://github.com/NekokeCore/24h-STB-live-on-bilibili/raw/master/demo2.jpg)
+![](https://github.com/NekokeCore/24h-STB-live-on-bilibili/raw/master/demo2.png)
 
 -------
 由于是源代码是基于树莓派编写的，所以移植到机顶盒上或多或少会有一些BUG
