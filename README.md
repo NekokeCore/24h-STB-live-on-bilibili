@@ -45,7 +45,10 @@
 sudo apt-get update
 sudo apt-get -y install autoconf automake build-essential libass-dev libfreetype6-dev libtheora-dev libtool libvorbis-dev pkg-config texinfo wget zlib1g-dev
 ```
-
+安装killall（用于切歌)：
+```Bash
+sudo apt-get install psmisc
+```
 安装x264编码器（时间较长）：
 
 ```Bash
